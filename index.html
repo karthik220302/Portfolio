@@ -544,91 +544,157 @@ section:first-of-type { border-top: none; }
 /* ═══════════════════════════════════════════
    PROJECTS — CARD LAYOUT
 ═══════════════════════════════════════════ */
+/* ── MAGAZINE LAYOUT ── */
 .projects-grid {
-  display: flex; flex-direction: column; gap: 2rem;
+  display: flex; flex-direction: column; gap: 0;
 }
 
-.proj-card {
-  display: grid; grid-template-columns: 340px 1fr;
+/* TOP ROW: featured + stack */
+.mag-row {
+  display: grid; grid-template-columns: 1.55fr 1fr;
   gap: 0; border: 1px solid var(--border);
-  position: relative; overflow: hidden;
-  transition: border-color .4s var(--ease-spring), box-shadow .4s;
 }
-.proj-card:hover { border-color: var(--gold-dim); box-shadow: 0 20px 60px rgba(201,169,110,0.07); }
-.proj-card::before {
-  content: ''; position: absolute; top: -1px; left: -1px;
-  width: 24px; height: 24px;
-  border-top: 2px solid var(--gold); border-left: 2px solid var(--gold);
-  transition: width .4s var(--ease-spring), height .4s var(--ease-spring);
-  z-index: 2;
-}
-.proj-card:hover::before { width: 44px; height: 44px; }
 
-/* LEFT: media */
-.proj-card-media {
-  position: relative; cursor: pointer; overflow: hidden;
-  background: #0a0a08; aspect-ratio: 4/3;
+/* FEATURED card */
+.proj-featured {
+  position: relative; overflow: hidden; cursor: pointer;
   border-right: 1px solid var(--border);
-  transition: border-color .4s;
+  display: flex; flex-direction: column;
 }
-.proj-card:hover .proj-card-media { border-color: var(--gold-dim); }
-.proj-card-media img,
-.proj-card-media video {
+.proj-featured-media {
+  position: relative; overflow: hidden; flex: 1; min-height: 320px;
+  background: #0a0a08;
+}
+.proj-featured-media video,
+.proj-featured-media img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform .6s var(--ease-spring);
+  transition: transform .7s var(--ease-spring);
   pointer-events: none;
 }
-.proj-card-media:hover img,
-.proj-card-media:hover video { transform: scale(1.05); }
-.proj-card-media-overlay {
-  position: absolute; inset: 0;
-  background: rgba(5,5,4,0.3);
-  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .6rem;
+.proj-featured:hover .proj-featured-media video,
+.proj-featured:hover .proj-featured-media img { transform: scale(1.04); }
+.proj-featured-overlay {
+  position: absolute; inset: 0; background: rgba(5,5,4,0.28);
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .5rem;
   transition: background .3s;
 }
-.proj-card-media:hover .proj-card-media-overlay { background: rgba(5,5,4,0.1); }
-.proj-card-media-overlay svg {
-  width: 52px; height: 52px;
-  stroke: var(--cream); fill: rgba(247,243,236,0.12);
-  stroke-width: 1.2;
-  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.6));
-  transition: transform .4s var(--ease-spring), stroke .3s, fill .3s;
+.proj-featured:hover .proj-featured-overlay { background: rgba(5,5,4,0.1); }
+.proj-featured-overlay svg {
+  width: 56px; height: 56px; stroke: var(--cream); fill: rgba(247,243,236,0.1);
+  stroke-width: 1.2; transition: transform .4s var(--ease-spring), stroke .3s;
 }
-.proj-card-media:hover .proj-card-media-overlay svg {
-  transform: scale(1.18);
-  stroke: var(--gold); fill: rgba(201,169,110,0.2);
+.proj-featured:hover .proj-featured-overlay svg { transform: scale(1.15); stroke: var(--gold); fill: rgba(201,169,110,0.18); }
+.proj-featured-overlay span {
+  font-family: var(--ff-mono); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(247,243,236,0.5); transition: color .3s;
 }
-.proj-card-media-hint {
-  font-family: var(--ff-mono); font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(247,243,236,0.5);
-  transition: color .3s;
-}
-.proj-card-media:hover .proj-card-media-hint { color: var(--gold); }
-
-/* RIGHT: content */
-.proj-card-body {
-  padding: 2.2rem 2.5rem; display: flex; flex-direction: column; gap: 1rem;
+.proj-featured:hover .proj-featured-overlay span { color: var(--gold); }
+.proj-featured-body {
+  padding: 1.8rem 2rem; border-top: 1px solid var(--border);
+  background: var(--black);
   position: relative;
 }
-.proj-card-num {
-  font-family: var(--ff-serif); font-size: .85rem; font-weight: 400;
-  color: var(--gold); opacity: .5;
+.proj-featured-body::before {
+  content: ''; position: absolute; top: -1px; left: -1px;
+  width: 28px; height: 28px;
+  border-top: 2px solid var(--gold); border-left: 2px solid var(--gold);
+  transition: width .4s var(--ease-spring), height .4s var(--ease-spring);
 }
-.proj-card-title {
-  font-family: var(--ff-serif); font-size: 1.55rem; font-weight: 700;
-  letter-spacing: -.02em; line-height: 1.2; color: var(--cream);
+.proj-featured:hover .proj-featured-body::before { width: 48px; height: 48px; }
+.proj-featured-num {
+  font-family: var(--ff-mono); font-size: .62rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); opacity: .6; margin-bottom: .5rem;
 }
-.proj-card-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-.proj-card-desc {
-  font-size: .88rem; color: var(--cream-dim); line-height: 1.85; flex: 1;
+.proj-featured-title {
+  font-family: var(--ff-serif); font-size: 1.7rem; font-weight: 700;
+  letter-spacing: -.02em; line-height: 1.15; color: var(--cream); margin-bottom: .75rem;
 }
-.proj-card-metric {
-  font-family: var(--ff-serif); font-style: italic; font-size: .85rem;
-  color: var(--gold); opacity: .7; line-height: 1.6;
-  border-top: 1px solid var(--border); padding-top: 1rem; margin-top: auto;
+.proj-featured-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .85rem; }
+.proj-featured-desc {
+  font-size: .86rem; color: var(--cream-dimmer); line-height: 1.8; margin-bottom: 1rem;
+}
+.proj-featured-metric {
+  font-family: var(--ff-serif); font-style: italic; font-size: .82rem;
+  color: var(--gold); opacity: .7; border-top: 1px solid var(--border); padding-top: .85rem;
   transition: opacity .3s;
 }
-.proj-card:hover .proj-card-metric { opacity: 1; }
+.proj-featured:hover .proj-featured-metric { opacity: 1; }
+
+/* SIDE STACK */
+.mag-side {
+  display: flex; flex-direction: column;
+}
+.proj-small {
+  display: flex; flex-direction: column; flex: 1;
+  border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.proj-small:last-child { border-bottom: none; }
+.proj-small-media {
+  position: relative; overflow: hidden; flex-shrink: 0; height: 160px;
+  background: #0a0a08;
+}
+.proj-small-media video,
+.proj-small-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .6s var(--ease-spring); pointer-events: none;
+}
+.proj-small:hover .proj-small-media video,
+.proj-small:hover .proj-small-media img { transform: scale(1.05); }
+.proj-small-overlay {
+  position: absolute; inset: 0; background: rgba(5,5,4,0.35);
+  display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .4rem;
+  transition: background .3s;
+}
+.proj-small:hover .proj-small-overlay { background: rgba(5,5,4,0.1); }
+.proj-small-overlay svg {
+  width: 36px; height: 36px; stroke: var(--cream); fill: rgba(247,243,236,0.1);
+  stroke-width: 1.4; transition: transform .4s var(--ease-spring), stroke .3s;
+}
+.proj-small:hover .proj-small-overlay svg { transform: scale(1.15); stroke: var(--gold); }
+.proj-small-overlay span {
+  font-family: var(--ff-mono); font-size: .52rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(247,243,236,0.45); transition: color .3s;
+}
+.proj-small:hover .proj-small-overlay span { color: var(--gold); }
+.proj-small-body {
+  padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: .5rem;
+  border-top: 1px solid var(--border); background: var(--black);
+  position: relative;
+}
+.proj-small-body::before {
+  content: ''; position: absolute; top: -1px; left: -1px;
+  width: 18px; height: 18px;
+  border-top: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold);
+  transition: width .4s var(--ease-spring), height .4s var(--ease-spring);
+}
+.proj-small:hover .proj-small-body::before { width: 32px; height: 32px; }
+.proj-small-num {
+  font-family: var(--ff-mono); font-size: .58rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); opacity: .55;
+}
+.proj-small-title {
+  font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 700;
+  letter-spacing: -.01em; line-height: 1.2; color: var(--cream);
+}
+.proj-small-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+.proj-small-metric {
+  font-family: var(--ff-serif); font-style: italic; font-size: .75rem;
+  color: var(--gold); opacity: .6; margin-top: auto; padding-top: .6rem;
+  border-top: 1px solid var(--border); transition: opacity .3s;
+}
+.proj-small:hover .proj-small-metric { opacity: 1; }
+.proj-small.active-proj { border-left: 2px solid var(--gold); }
+.proj-small.active-proj .proj-small-num { opacity: 1; color: var(--gold); }
+.proj-small.active-proj .proj-small-title { color: var(--cream); }
+.proj-small { cursor: pointer; transition: border-left-color .3s; }
+.proj-small:not(.active-proj):hover { border-left: 2px solid var(--border-hi); }
+
+/* featured pane transition */
+.proj-featured-body { transition: opacity .3s ease; }
+.proj-featured-media { transition: opacity .3s ease; }
+.proj-featured.switching .proj-featured-body,
+.proj-featured.switching .proj-featured-media { opacity: 0; }
 
 /* Lightbox */
 #projLightbox {
@@ -1591,76 +1657,78 @@ a.cert-card:hover .cert-verified { opacity:.7; }
             </div>
           </div>
 
-          <!-- PROJECT 01 -->
-<div class="proj-card rev d1">
-  <div class="proj-card-media" onclick="openLightboxVideo('playstation.mp4','PlayStation Sales Dashboard')">
-    <video src="playstation.mp4" muted playsinline preload="metadata"></video>
+          <!-- MAGAZINE SWITCHER -->
+          <div class="mag-row rev d1" id="magRow">
 
-    <div class="proj-card-media-overlay">
-      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <polygon points="10 8 16 12 10 16 10 8"/>
-      </svg>
-      <span class="proj-card-media-hint">Click to play</span>
-    </div>
-  </div>
-
-  <div class="proj-card-body">
-    <span class="proj-card-num">01</span>
-    <h3 class="proj-card-title">PlayStation Sales Dashboard</h3>
-
-    <div class="proj-card-tags">
-      <span class="tag">Tableau</span>
-      <span class="tag">Data Visualization</span>
-      <span class="tag">Sales Analytics</span>
-    </div>
-
-    <p class="proj-card-desc">
-      I built an interactive Tableau dashboard analyzing over 1.49 billion dollars in sales and more than 4,400 games 
-      across PS3, PS4, and PS5. I identified top-performing genres, regional trends, and platform-level insights using interactive filters.
-    </p>
-
-    <p class="proj-card-metric">$1.49B+ in sales · 4,400+ game titles</p>
-  </div>
-</div>
-
-          <!-- PROJECT 02 -->
-          <div class="proj-card rev d2">
-            <div class="proj-card-media" onclick="openLightboxVideo('tesla.mp4','Tesla Model G — Innovation Concept')">
-              <video src="tesla.mp4" muted playsinline preload="metadata"></video>
-              <div class="proj-card-media-overlay">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                <span class="proj-card-media-hint">Click to play</span>
+            <!-- LEFT: FEATURED PANE -->
+            <div class="proj-featured" id="featuredPane">
+              <div class="proj-featured-media" id="featuredMedia">
+                <video id="featuredVideo" src="playstation.mp4" muted playsinline preload="metadata"></video>
+                <div class="proj-featured-overlay" id="featuredOverlay" onclick="openLightboxVideo(window._projData[window._activeProj].video, window._projData[window._activeProj].title)">
+                  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                  <span>Click to play</span>
+                </div>
+              </div>
+              <div class="proj-featured-body">
+                <div class="proj-featured-num" id="featuredNum">01 — Featured</div>
+                <h3 class="proj-featured-title" id="featuredTitle">PlayStation Sales Dashboard</h3>
+                <div class="proj-featured-tags" id="featuredTags">
+                  <span class="tag">Tableau</span>
+                  <span class="tag">Data Visualization</span>
+                  <span class="tag">Sales Analytics</span>
+                </div>
+                <p class="proj-featured-desc" id="featuredDesc">I built an interactive Tableau dashboard analyzing over 1.49 billion dollars in sales and more than 4,400 games across PS3, PS4, and PS5. I identified top-performing genres, regional trends, and platform-level insights using interactive filters.</p>
+                <p class="proj-featured-metric" id="featuredMetric">$1.49B+ in sales · 4,400+ game titles</p>
               </div>
             </div>
-            <div class="proj-card-body">
-              <span class="proj-card-num">02</span>
-              <h3 class="proj-card-title">Tesla Model G, Innovation Concept</h3>
-              <div class="proj-card-tags">
-                <span class="tag">Market Research</span><span class="tag">Consumer Insights</span><span class="tag">PSB Paris</span>
-              </div>
-              <p class="proj-card-desc">I led consumer research across six countries on solar-integrated EV design and sustainability preferences. I created a concept video and business case showing potential for 30–40 km of daily solar-generated range as part of an academic innovation project.</p>
-              <p class="proj-card-metric">6-country survey · Cross-functional team</p>
-            </div>
-          </div>
 
-          <!-- PROJECT 03 -->
-          <div class="proj-card rev d3">
-            <div class="proj-card-media" onclick="openLightboxVideo('verishield.mp4','VeriShield — Business Simulation')">
-              <video src="verishield.mp4" muted playsinline preload="metadata"></video>
-              <div class="proj-card-media-overlay">
-                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                <span class="proj-card-media-hint">Click to play</span>
+            <!-- RIGHT: SIDE STACK -->
+            <div class="mag-side" id="magSide">
+              <div class="proj-small active-proj" data-idx="0" onclick="switchProject(0)">
+                <div class="proj-small-media">
+                  <video src="playstation.mp4" muted playsinline preload="metadata"></video>
+                  <div class="proj-small-overlay">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    <span>Click to expand</span>
+                  </div>
+                </div>
+                <div class="proj-small-body">
+                  <div class="proj-small-num">01</div>
+                  <h3 class="proj-small-title">PlayStation Sales Dashboard</h3>
+                  <div class="proj-small-tags"><span class="tag">Tableau</span><span class="tag">Data Visualization</span></div>
+                  <p class="proj-small-metric">$1.49B+ in sales · 4,400+ game titles</p>
+                </div>
               </div>
-            </div>
-            <div class="proj-card-body">
-              <span class="proj-card-num">03</span>
-              <h3 class="proj-card-title">VeriShield, Business Simulation</h3>
-              <div class="proj-card-tags">
-                <span class="tag">Business Strategy</span><span class="tag">Crisis Management</span><span class="tag">PSB Paris</span>
+              <div class="proj-small" data-idx="1" onclick="switchProject(1)">
+                <div class="proj-small-media">
+                  <video src="tesla.mp4" muted playsinline preload="metadata"></video>
+                  <div class="proj-small-overlay">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    <span>Click to expand</span>
+                  </div>
+                </div>
+                <div class="proj-small-body">
+                  <div class="proj-small-num">02</div>
+                  <h3 class="proj-small-title">Tesla Model G, Innovation Concept</h3>
+                  <div class="proj-small-tags"><span class="tag">Market Research</span><span class="tag">Consumer Insights</span></div>
+                  <p class="proj-small-metric">6-country survey · Cross-functional team</p>
+                </div>
               </div>
-              <p class="proj-card-desc">I co-built a compliance and supply chain startup from scratch during the Innovation Challenge 2026 at Paris School of Business. I managed crisis scenarios including data breaches and reputational issues, applying data-driven decisions under competition pressure.</p>
-              <p class="proj-card-metric">Innovation Challenge 2026 · 8-person team</p>
+              <div class="proj-small" data-idx="2" onclick="switchProject(2)">
+                <div class="proj-small-media">
+                  <video src="verishield.mp4" muted playsinline preload="metadata"></video>
+                  <div class="proj-small-overlay">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    <span>Click to expand</span>
+                  </div>
+                </div>
+                <div class="proj-small-body">
+                  <div class="proj-small-num">03</div>
+                  <h3 class="proj-small-title">VeriShield, Business Simulation</h3>
+                  <div class="proj-small-tags"><span class="tag">Business Strategy</span><span class="tag">Crisis Management</span></div>
+                  <p class="proj-small-metric">Innovation Challenge 2026 · 8-person team</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -2018,8 +2086,71 @@ document.querySelectorAll('.sk-group').forEach(group => {
 });
 
 /* ═══════════════════════════
-   MOBILE MENU
+   PROJECT SWITCHER
 ═══════════════════════════ */
+window._projData = [
+  {
+    num: '01 — Featured',
+    title: 'PlayStation Sales Dashboard',
+    tags: ['Tableau','Data Visualization','Sales Analytics'],
+    desc: 'I built an interactive Tableau dashboard analyzing over 1.49 billion dollars in sales and more than 4,400 games across PS3, PS4, and PS5. I identified top-performing genres, regional trends, and platform-level insights using interactive filters.',
+    metric: '$1.49B+ in sales · 4,400+ game titles',
+    video: 'playstation.mp4'
+  },
+  {
+    num: '02 — Featured',
+    title: 'Tesla Model G, Innovation Concept',
+    tags: ['Market Research','Consumer Insights','PSB Paris'],
+    desc: 'I led consumer research across six countries on solar-integrated EV design and sustainability preferences. I created a concept video and business case showing potential for 30–40 km of daily solar-generated range as part of an academic innovation project.',
+    metric: '6-country survey · Cross-functional team',
+    video: 'tesla.mp4'
+  },
+  {
+    num: '03 — Featured',
+    title: 'VeriShield, Business Simulation',
+    tags: ['Business Strategy','Crisis Management','PSB Paris'],
+    desc: 'I co-built a compliance and supply chain startup from scratch during the Innovation Challenge 2026 at Paris School of Business. I managed crisis scenarios including data breaches and reputational issues, applying data-driven decisions under competition pressure.',
+    metric: 'Innovation Challenge 2026 · 8-person team',
+    video: 'verishield.mp4'
+  }
+];
+window._activeProj = 0;
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.proj-small[data-idx="0"]');
+  if (first) first.style.display = 'none';
+});
+
+function switchProject(idx) {
+  if (idx === window._activeProj) return;
+  const data = window._projData[idx];
+  const featured = document.getElementById('featuredPane');
+
+  featured.classList.add('switching');
+
+  setTimeout(() => {
+    document.getElementById('featuredNum').textContent = data.num;
+    document.getElementById('featuredTitle').textContent = data.title;
+    document.getElementById('featuredDesc').textContent = data.desc;
+    document.getElementById('featuredMetric').textContent = data.metric;
+
+    const tagsEl = document.getElementById('featuredTags');
+    tagsEl.innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+    const video = document.getElementById('featuredVideo');
+    video.src = data.video;
+    video.load();
+
+    window._activeProj = idx;
+
+    document.querySelectorAll('.proj-small').forEach((el, i) => {
+      el.classList.toggle('active-proj', i === idx);
+      el.style.display = i === idx ? 'none' : 'flex';
+    });
+
+    featured.classList.remove('switching');
+  }, 280);
+}
+
 const burger = document.getElementById('navBurger');
 const mMenu = document.getElementById('mobileMenu');
 let menuOpen = false;
