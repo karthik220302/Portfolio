@@ -6,7 +6,7 @@
 <title>Karthik Raja Rajan — Marketing Analytics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Inconsolata:wght@300;400&family=Cormorant+Garamond:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Inconsolata:wght@300;400&family=Cormorant+Garamond:wght@700;800&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
    TOKENS & RESET
@@ -250,13 +250,13 @@ nav.scrolled {
 #hero {
   min-height: 100vh; position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.2fr 1fr;
-  gap: 4rem; align-items: end;
-  padding: 10rem var(--pad) 8rem;
+  gap: 4rem; align-items: center;
+  padding: 5.5rem var(--pad) 4rem;
   max-width: var(--max); margin: 0 auto;
 }
 .hero-eyebrow {
   font-family: var(--ff-mono); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; gap: .85rem;
+  color: var(--gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: .85rem;
   opacity: 0; animation: fu 1s var(--ease-spring) 1.9s forwards;
 }
 .hero-eyebrow::before {
@@ -266,16 +266,20 @@ nav.scrolled {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(3.8rem, 8.5vw, 7.8rem);
   font-weight: 800; line-height: .93; letter-spacing: -.02em;
-  margin-bottom: 1.6rem; will-change: transform, opacity;
+  margin-bottom: 0; will-change: transform, opacity;
+  padding-bottom: 0.35em;
+}
+.hero-name .char-wrap {
+  overflow: visible !important;
 }
 .hero-name-sub {
   display: block; font-style: italic; font-weight: 400; font-size: .52em;
-  color: var(--cream-dim); letter-spacing: -.01em; margin-top: .65rem;
+  color: var(--cream-dim); letter-spacing: -.01em; margin-top: 1.6rem; text-align: left; padding-left: 0.08em;
   opacity: 0; animation: fu 1s var(--ease-spring) 2.5s forwards;
 }
 .hero-bio {
   font-size: 1.05rem; font-weight: 400; color: var(--cream-dim); line-height: 1.85;
-  max-width: 440px; margin-bottom: 2.5rem;
+  max-width: 440px; margin-bottom: 2rem; margin-top: 0;
   opacity: 0; animation: fu 1s var(--ease-spring) 2.7s forwards;
 }
 .hero-btns {
@@ -291,9 +295,9 @@ nav.scrolled {
 }
 .stat-box {
   border: 1px solid var(--border-hi);
-  padding: 1.85rem 2.25rem;
-  min-width: 220px; text-align: right;
-  position: relative; overflow: hidden;
+  padding: 1.85rem 2.25rem 2rem;
+  min-width: 240px; text-align: right;
+  position: relative; overflow: visible;
   transition: border-color .35s, transform .45s var(--ease-spring), box-shadow .45s;
   cursor: default;
 }
@@ -322,7 +326,7 @@ nav.scrolled {
 .stat-box:hover .shimmer { transform: translateX(100%); }
 .stat-num {
   display: block; font-family: var(--ff-serif);
-  font-size: 3.4rem; font-weight: 900; line-height: 1; margin-bottom: .4rem;
+  font-size: 3.4rem; font-weight: 900; line-height: 1.1; margin-bottom: .4rem;
   background: linear-gradient(135deg, var(--cream) 60%, var(--gold));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
@@ -1918,8 +1922,10 @@ function flashToPortfolio() {
 }
 
 function skipIntro() {
-  videoIntro.classList.add('gone');
+  videoIntro.style.transition = 'opacity 0.25s ease-out';
+  videoIntro.style.opacity = '0';
   document.body.style.overflow = '';
+  setTimeout(() => { videoIntro.style.display = 'none'; }, 260);
 }
 
 
